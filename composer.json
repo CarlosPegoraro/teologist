@@ -62,7 +62,7 @@
             "sudo kill -9 $(sudo lsof -t -i:8000)"
         ],
         "dev": [
-            "php artisan octane:start --host=localhost --port=8000"
+            "@php artisan serve --port=8000 --host=0.0.0.0"
         ],
         "test": [
             "@php artisan config:clear --ansi",
