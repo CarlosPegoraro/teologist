@@ -30,6 +30,17 @@ Route::middleware('auth')->group(function () {
     Route::resource('/blog', 'App\Http\Controllers\BlogController')->names('blog');
     Route::resource('/forum', 'App\Http\Controllers\ForumController')->names('forum');
     Route::resource('/new', 'App\Http\Controllers\ForumController')->names('new');
+
+    Route::apiResource('authors', \App\Http\Controllers\AuthorController::class)->except(['index', 'show']);
+    Route::apiResource('categories', \App\Http\Controllers\CategoryController::class)->except(['index', 'show']);
+    Route::apiResource('blogs', \App\Http\Controllers\BlogController::class)->except(['index', 'show']);
+    Route::apiResource('posts', \App\Http\Controllers\PostController::class)->except(['index', 'show']);
+
+    Route::post('posts/{post}/comments', [\App\Http\Controllers\CommentController::class, 'store']);
+    Route::put('comments/{comment}', [\App\Http\Controllers\CommentController::class, 'update']);
+    Route::patch('comments/{comment}', [\App\Http\Controllers\CommentController::class, 'update']);
+    Route::delete('comments/{comment}', [\App\Http\Controllers\CommentController::class, 'destroy']);
+
 });
 
 Route::post('logout', App\Livewire\Actions\Logout::class)

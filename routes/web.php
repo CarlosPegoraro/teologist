@@ -8,6 +8,12 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::apiResource('authors', \App\Http\Controllers\AuthorController::class)->only(['index', 'show']);
+Route::apiResource('categories', \App\Http\Controllers\CategoryController::class)->only(['index', 'show']);
+Route::apiResource('blogs', \App\Http\Controllers\BlogController::class)->only(['index', 'show']);
+Route::apiResource('posts', \App\Http\Controllers\PostController::class)->only(['index', 'show']);
+Route::get('posts/{post}/comments', [\App\Http\Controllers\CommentController::class, 'index']);
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
