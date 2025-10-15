@@ -6,79 +6,89 @@ state([
     'categories' => [
         [
             'title' => 'Teologia',
-            'description' => 'Fé, espiritualidade e questões transcendentais',
+            'description' => 'Fé, espiritualidade e questões transcendentais.',
             'color' => 'primary',
             'icon' => 'sparkles',
+            'slug' => 'teologia'
         ],
         [
             'title' => 'Política',
-            'description' => 'Poder, governança e organização social',
+            'description' => 'Poder, governança e organização social.',
             'color' => 'accent',
             'icon' => 'users',
+            'slug' => 'politica'
         ],
         [
             'title' => 'Economia',
-            'description' => 'Recursos, trabalho e sistemas econômicos',
+            'description' => 'Recursos, trabalho e sistemas econômicos.',
             'color' => 'secondary',
             'icon' => 'trending-up',
+            'slug' => 'economia'
         ],
         [
             'title' => 'Sociologia',
-            'description' => 'Sociedade, cultura e relações humanas',
+            'description' => 'Sociedade, cultura e relações humanas.',
             'color' => 'primary',
-            'icon' => 'users',
+            'icon' => 'building',
+            'slug' => 'sociologia'
         ],
     ],
 ]);
+
 ?>
 
-<section class="py-16 md:py-24 bg-muted/50">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold font-serif mb-4">Áreas de Conhecimento</h2>
-            <p class="text-muted-foreground text-lg max-w-2xl mx-auto">Exploramos questões fundamentais em quatro
-                grandes áreas</p>
+<section class="py-20 md:py-28 bg-gray-900">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16 animate-fade-in-up">
+            <h2 class="text-3xl md:text-4xl font-bold font-serif mb-4 text-white">Áreas de Conhecimento</h2>
+            <p class="text-gray-400 text-lg max-w-2xl mx-auto">Exploramos questões fundamentais em quatro grandes áreas.</p>
         </div>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            @php
-                $colorClasses = [
-                    'primary' => 'border-primary/40 hover:border-primary bg-primary/5 hover:bg-primary/10',
-                    'accent' => 'border-accent/40 hover:border-accent bg-accent/5 hover:bg-accent/10',
-                    'secondary' => 'border-secondary/40 hover:border-secondary bg-secondary/5 hover:bg-secondary/10',
-                ];
-                $iconColor = [
-                    'primary' => 'text-primary',
-                    'accent' => 'text-accent',
-                    'secondary' => 'text-secondary',
-                ];
-            @endphp
+        @php
+            // Mapeamento de classes para um código mais limpo na view
+            $colorMap = [
+                'primary' => [
+                    'border' => 'border-teal-500/20 hover:border-teal-400/50',
+                    'icon' => 'text-teal-400',
+                    'glow' => 'glow-teal',
+                ],
+                'accent' => [
+                    'border' => 'border-yellow-500/20 hover:border-yellow-400/50',
+                    'icon' => 'text-yellow-400',
+                    'glow' => 'glow-yellow',
+                ],
+                'secondary' => [
+                    'border' => 'border-indigo-500/20 hover:border-indigo-400/50',
+                    'icon' => 'text-indigo-400',
+                    'glow' => 'glow-indigo',
+                ],
+            ];
+        @endphp
 
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach($categories as $category)
-                <div
-                    class="text-center hover:shadow-lg transition-all duration-300 border-2 rounded-xl bg-card {{ $colorClasses[$category['color']] ?? '' }}">
-                    <div class="p-6">
-                        <div class="flex justify-center mb-3">
-                            <div class="w-12 h-12 rounded-full bg-background flex items-center justify-center">
-                                @switch($category['icon'])
-                                    @case('sparkles')
-                                        <x-lucide-sparkles
-                                            class="h-6 w-6 {{ $iconColor[$category['color']] ?? '' }}"/>
-                                        @break
-                                    @case('users')
-                                        <x-lucide-users class="h-6 w-6 {{ $iconColor[$category['color']] ?? '' }}"/>
-                                        @break
-                                    @case('trending-up')
-                                        <x-lucide-trending-up
-                                            class="h-6 w-6 {{ $iconColor[$category['color']] ?? '' }}"/>
-                                        @break
-                                @endswitch
+                @php
+                    $colors = $colorMap[$category['color']] ?? $colorMap['primary'];
+                    $iconComponent = 'lucide-' . $category['icon'];
+                @endphp
+                <a
+                    href="#" {{-- Substitua # pelo seu link de categoria, ex: route('categories.show', $category['slug']) --}}
+                class="group relative text-center p-8 rounded-2xl bg-gray-800/40 backdrop-blur-sm border transition-all duration-300 transform hover:-translate-y-2 {{ $colors['border'] }} {{ $colors['glow'] }}"
+                    style="animation-delay: {{ 200 + $loop->index * 150 }}ms;"
+                >
+                    {{-- Glow effect --}}
+                    <div class="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                    <div class="relative z-10 flex flex-col items-center">
+                        <div class="flex-shrink-0 mb-5">
+                            <div class="w-16 h-16 rounded-full bg-gray-900/50 flex items-center justify-center border border-gray-700/50">
+                                <x-dynamic-component :component="$iconComponent" class="h-8 w-8 {{ $colors['icon'] }}" />
                             </div>
                         </div>
-                        <h3 class="text-xl font-serif">{{ $category['title'] }}</h3>
-                        <p class="text-sm text-muted-foreground leading-relaxed">{{ $category['description'] }}</p>
+                        <h3 class="text-xl font-bold font-serif mb-2 text-white">{{ $category['title'] }}</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">{{ $category['description'] }}</p>
                     </div>
-                </div>
+                </a>
             @endforeach
         </div>
     </div>

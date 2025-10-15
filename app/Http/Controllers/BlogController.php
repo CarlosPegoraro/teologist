@@ -4,57 +4,54 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class BlogController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(): View
     {
-        return response()->json(Blog::with(['author', 'categories'])->paginate(15));
+        $blogs = Blog::with(['author', 'categories'])->latest()->paginate(9);
+        return view('blogs.index', compact('blogs'));
     }
 
-    public function store(BlogRequest $request): JsonResponse
+    public function create(): View
     {
-        $validated = $request->validated();
-        $blog = DB::transaction(function () use ($validated) {
-            $blog = Blog::create($validated);
-            $blog->contents()->createMany($validated['contents']);
-            if (isset($validated['categories'])) {
-                $blog->categories()->sync($validated['categories']);
-            }
-            return $blog;
-        });
-
-        return response()->json($blog->load(['author', 'categories', 'contents']), 201);
+        return view('blogs.create');
     }
 
-    public function show(Blog $blog): JsonResponse
+    public function store(BlogRequest $request): RedirectResponse
     {
-        return response()->json($blog->load(['author', 'categories', 'contents']));
+        $blog = Blog::create($request->validated());
+        return redirect()->route('blogs.show', $blog)
+            ->with('success', 'Blog created successfully.');
     }
 
-    public function update(BlogRequest $request, Blog $blog): JsonResponse
+    public function show(Blog $blog): View
     {
-        $validated = $request->validated();
-        $blog = DB::transaction(function () use ($validated, $blog) {
-            $blog->update($validated);
-            if (isset($validated['contents'])) {
-                $blog->contents()->delete();
-                $blog->contents()->createMany($validated['contents']);
-            }
-            if (isset($validated['categories'])) {
-                $blog->categories()->sync($validated['categories']);
-            }
-            return $blog;
-        });
+        $blog->load(['author', 'categories', 'contents' => function ($query) {
+            $query->orderBy('order', 'asc');
+        }]);
 
-        return response()->json($blog->load(['author', 'categories', 'contents']));
+        return view('blogs.show', compact('blog'));
     }
 
-    public function destroy(Blog $blog): JsonResponse
+    public function edit(Blog $blog): View
+    {
+        return view('blogs.edit', compact('blog'));
+    }
+
+    public function update(BlogRequest $request, Blog $blog): RedirectResponse
+    {
+        $blog->update($request->validated());
+        return redirect()->route('blogs.show', $blog)
+            ->with('success', 'Blog updated successfully.');
+    }
+
+    public function destroy(Blog $blog): RedirectResponse
     {
         $blog->delete();
-        return response()->json(null, 204);
+        return redirect()->route('blogs.index')
+            ->with('success', 'Blog deleted successfully.');
     }
 }

@@ -4,35 +4,50 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AuthorRequest;
 use App\Models\Author;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class AuthorController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(): View
     {
-        return response()->json(Author::paginate(15));
+        $authors = Author::paginate(15);
+        return view('authors.index', compact('authors'));
     }
 
-    public function store(AuthorRequest $request): JsonResponse
+    public function create(): View
+    {
+        return view('authors.create');
+    }
+
+    public function store(AuthorRequest $request): RedirectResponse
     {
         $author = Author::create($request->validated());
-        return response()->json($author, 201);
+        return redirect()->route('authors.show', $author)
+            ->with('success', 'Author created successfully.');
     }
 
-    public function show(Author $author): JsonResponse
+    public function show(Author $author): View
     {
-        return response()->json($author);
+        return view('authors.show', compact('author'));
     }
 
-    public function update(AuthorRequest $request, Author $author): JsonResponse
+    public function edit(Author $author): View
+    {
+        return view('authors.edit', compact('author'));
+    }
+
+    public function update(AuthorRequest $request, Author $author): RedirectResponse
     {
         $author->update($request->validated());
-        return response()->json($author);
+        return redirect()->route('authors.show', $author)
+            ->with('success', 'Author updated successfully.');
     }
 
-    public function destroy(Author $author): JsonResponse
+    public function destroy(Author $author): RedirectResponse
     {
         $author->delete();
-        return response()->json(null, 204);
+        return redirect()->route('authors.index')
+            ->with('success', 'Author deleted successfully.');
     }
 }

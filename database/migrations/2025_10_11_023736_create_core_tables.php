@@ -81,6 +81,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('comments');
+        Schema::dropIfExists('posts');
+        Schema::dropIfExists('blogs_categories');
+        Schema::dropIfExists('blogs_contents');
         Schema::dropIfExists('blogs');
         Schema::dropIfExists('categories');
         Schema::dropIfExists('authors');

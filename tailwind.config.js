@@ -46,7 +46,7 @@ module.exports = {
     },
 
     plugins: [
-        // Adicione aqui os plugins que estiver usando, ex:
-        // require('@tailwindcss/forms'),
+        require('tailwindcss-animate'),
+        require('@tailwindcss/typography'),
     ],
 };

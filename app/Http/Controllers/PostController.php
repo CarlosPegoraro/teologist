@@ -4,39 +4,50 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class PostController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(): View
     {
-        return response()->json(Post::with('user')->paginate(15));
+        $posts = Post::paginate(15);
+        return view('posts.index', compact('posts'));
     }
 
-    public function store(PostRequest $request): JsonResponse
+    public function create(): View
     {
-        $post = $request->user()->posts()->create($request->validated());
-        return response()->json($post, 201);
+        return view('posts.create');
     }
 
-    public function show(Post $post): JsonResponse
+    public function store(PostRequest $request): RedirectResponse
     {
-        return response()->json($post->load('user', 'comments.user'));
+        $post = Post::create($request->validated());
+        return redirect()->route('posts.show', $post)
+            ->with('success', 'Post created successfully.');
     }
 
-    public function update(PostRequest $request, Post $post): JsonResponse
+    public function show(Post $post): View
+    {
+        return view('posts.show', compact('post'));
+    }
+
+    public function edit(Post $post): View
+    {
+        return view('posts.edit', compact('post'));
+    }
+
+    public function update(PostRequest $request, Post $post): RedirectResponse
     {
         $post->update($request->validated());
-        return response()->json($post);
+        return redirect()->route('posts.show', $post)
+            ->with('success', 'Post updated successfully.');
     }
 
-    public function destroy(Post $post): JsonResponse
+    public function destroy(Post $post): RedirectResponse
     {
-        // Adicionar uma Policy para garantir que apenas o autor possa deletar
-        // if ($request->user()->cannot('delete', $post)) {
-        //     abort(403);
-        // }
         $post->delete();
-        return response()->json(null, 204);
+        return redirect()->route('posts.index')
+            ->with('success', 'Post deleted successfully.');
     }
 }

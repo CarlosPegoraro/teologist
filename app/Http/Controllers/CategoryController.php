@@ -4,35 +4,71 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
-    public function index(): JsonResponse
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(): View
     {
-        return response()->json(Category::paginate(15));
+        $categories = Category::paginate(15);
+        return view('categories.index', compact('categories'));
     }
 
-    public function store(CategoryRequest $request): JsonResponse
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(): View
+    {
+        return view('categories.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(CategoryRequest $request): RedirectResponse
     {
         $category = Category::create($request->validated());
-        return response()->json($category, 201);
+        return redirect()->route('categories.show', $category)
+            ->with('success', 'Category created successfully.');
     }
 
-    public function show(Category $category): JsonResponse
+    /**
+     * Display the specified resource.
+     */
+    public function show(Category $category): View
     {
-        return response()->json($category);
+        return view('categories.show', compact('category'));
     }
 
-    public function update(CategoryRequest $request, Category $category): JsonResponse
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Category $category): View
+    {
+        return view('categories.edit', compact('category'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(CategoryRequest $request, Category $category): RedirectResponse
     {
         $category->update($request->validated());
-        return response()->json($category);
+        return redirect()->route('categories.show', $category)
+            ->with('success', 'Category updated successfully.');
     }
 
-    public function destroy(Category $category): JsonResponse
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Category $category): RedirectResponse
     {
         $category->delete();
-        return response()->json(null, 204);
+        return redirect()->route('categories.index')
+            ->with('success', 'Category deleted successfully.');
     }
 }

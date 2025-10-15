@@ -5,32 +5,32 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 
 class CommentController extends Controller
 {
-    public function index(Post $post): JsonResponse
+    public function store(CommentRequest $request, Post $post): RedirectResponse
     {
-        return response()->json($post->comments()->with('user')->paginate(15));
+        $post->comments()->create($request->validated());
+
+        return redirect()->route('posts.show', $post)
+            ->with('success', 'Comment added successfully.');
     }
 
-    public function store(CommentRequest $request, Post $post): JsonResponse
-    {
-        $comment = $post->comments()->create(
-            ['user_id' => $request->user()->id] + $request->validated()
-        );
-        return response()->json($comment->load('user'), 201);
-    }
-
-    public function update(CommentRequest $request, Comment $comment): JsonResponse
+    public function update(CommentRequest $request, Comment $comment): RedirectResponse
     {
         $comment->update($request->validated());
-        return response()->json($comment);
+
+        return redirect()->route('posts.show', $comment->post)
+            ->with('success', 'Comment updated successfully.');
     }
 
-    public function destroy(Comment $comment): JsonResponse
+    public function destroy(Comment $comment): RedirectResponse
     {
+        $post = $comment->post;
         $comment->delete();
-        return response()->json(null, 204);
+
+        return redirect()->route('posts.show', $post)
+            ->with('success', 'Comment deleted successfully.');
     }
 }

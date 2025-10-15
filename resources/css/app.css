@@ -38,9 +38,8 @@
 
 @layer theme {
     .dark {
-        --color-accent: var(--color-white);
-        --color-accent-content: var(--color-white);
-        --color-accent-foreground: var(--color-neutral-800);
+        --color-accent: oklch(68.1% 0.162 75.834);
+        --color-accent-foreground: oklch(85.2% 0.199 91.936);
     }
 }
 
@@ -52,6 +51,18 @@
     ::backdrop,
     ::file-selector-button {
         border-color: var(--color-gray-200, currentColor);
+    }
+
+    :root {
+        --background: 0 0% 100%;
+        --foreground: 222.2 84% 4.9%;
+        /* ... outras variáveis de cor do seu tema */
+    }
+
+    .dark {
+        --background: 222.2 84% 4.9%;
+        --foreground: 210 40% 98%;
+        /* ... outras variáveis de cor do seu tema escuro */
     }
 }
 
@@ -67,6 +78,96 @@ input:focus[data-flux-control],
 textarea:focus[data-flux-control],
 select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+}
+
+
+@layer utilities {
+    @keyframes gradient-xy {
+        0%, 100% {
+            background-size: 400% 400%;
+            background-position: 0% 50%;
+        }
+        50% {
+            background-size: 200% 200%;
+            background-position: 100% 50%;
+        }
+    }
+
+    .animate-gradient-xy {
+        animation: gradient-xy 15s ease infinite;
+    }
+
+    @keyframes fade-in-down {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in-down {
+        animation: fade-in-down 0.5s ease-out forwards;
+    }
+
+    @keyframes fade-in-up {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in-up {
+        animation: fade-in-up 0.5s ease-out forwards;
+    }
+
+    .glow-teal {
+        box-shadow: 0 0 0 0 rgba(29, 78, 216, 0);
+        transition: box-shadow 0.3s ease-out;
+    }
+    .group:hover .glow-teal {
+        box-shadow: 0 0 25px -5px rgba(20, 184, 166, 0.4);
+    }
+
+    .glow-yellow {
+        box-shadow: 0 0 0 0 rgba(217, 119, 6, 0);
+        transition: box-shadow 0.3s ease-out;
+    }
+    .group:hover .glow-yellow {
+        box-shadow: 0 0 25px -5px rgba(241, 196, 15, 0.4);
+    }
+
+    .glow-indigo {
+        box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
+        transition: box-shadow 0.3s ease-out;
+    }
+    .group:hover .glow-indigo {
+        box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.4);
+    }
+}
+
+@layer components {
+    .pagination {
+        @apply flex justify-center items-center gap-1;
+    }
+    .pagination a, .pagination span {
+        @apply flex items-center justify-center h-10 w-10 rounded-lg text-sm font-semibold transition-colors duration-200;
+    }
+    .pagination a {
+        @apply text-gray-400 bg-gray-800/60 hover:bg-teal-500 hover:text-white;
+    }
+    .pagination .active span {
+        @apply bg-teal-500 text-white cursor-default;
+    }
+    .pagination .disabled span {
+        @apply bg-gray-800/40 text-gray-600 cursor-not-allowed;
+    }
 }
 
 /* \[:where(&)\]:size-4 {

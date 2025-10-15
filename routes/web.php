@@ -5,7 +5,7 @@ use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 
 Route::get('/', function () {
-    return view('home');
+    return view('home.index');
 })->name('home');
 
 Route::apiResource('authors', \App\Http\Controllers\AuthorController::class)->only(['index', 'show']);
