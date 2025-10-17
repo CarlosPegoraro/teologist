@@ -18,6 +18,7 @@ class Author extends Model
         'phone',
         'about',
         'title',
+        'photo_url'
     ];
 
     public function blogs(): HasMany

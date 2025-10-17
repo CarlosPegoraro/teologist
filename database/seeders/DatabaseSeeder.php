@@ -52,6 +52,8 @@ class DatabaseSeeder extends Seeder
             ->recycle(Post::all())
             ->create();
 
+        $this->call(RoleSeeder::class);
+
         $this->command->info('Database seeded successfully!');
         $this->command->info('Main user created:');
         $this->command->info('Email: test@example.com');

@@ -1,7 +1,7 @@
 @props(['title'])
 
 <x-layouts.app :title="$title">
-    <div class="relative min-h-screen flex items-center justify-center bg-gray-900 text-white overflow-hidden">
+    <div class="relative min-h-screen flex items-center justify-center bg-background text-foreground overflow-hidden">
         {{-- Background Effects --}}
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-900 to-black animate-gradient-xy"></div>

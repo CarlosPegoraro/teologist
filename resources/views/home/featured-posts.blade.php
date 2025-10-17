@@ -28,32 +28,32 @@
     ];
 
     $colorMap = [
-        'primary' => ['bg' => 'bg-teal-500', 'text' => 'text-teal-300'],
+        'primary' => ['bg' => 'bg-primary', 'text' => 'text-teal-300'],
         'accent' => ['bg' => 'bg-yellow-500', 'text' => 'text-yellow-300'],
         'secondary' => ['bg' => 'bg-indigo-500', 'text' => 'text-indigo-300'],
     ];
 @endphp
 
-<section class="py-20 md:py-28 bg-gray-900/50">
+<section class="py-20 md:py-28 bg-background/50">
     <div class="container mx-auto px-6">
         <div class="text-center mb-16 animate-fade-in-up">
-            <h2 class="text-3xl md:text-4xl font-bold font-serif mb-4 text-white">Artigos em Destaque</h2>
-            <p class="text-gray-400 text-lg max-w-2xl mx-auto">Mergulhe em nossas análises mais recentes sobre temas complexos.</p>
+            <h2 class="text-3xl md:text-4xl font-bold font-serif mb-4 text-foreground">Artigos em Destaque</h2>
+            <p class="text-muted-foreground text-lg max-w-2xl mx-auto">Mergulhe em nossas análises mais recentes sobre temas complexos.</p>
         </div>
 
         <div class="grid lg:grid-cols-3 gap-8">
             @foreach($featuredPosts as $post)
                 @php $colors = $colorMap[$post['color']]; @endphp
                 <div class="group animate-fade-in-up" style="animation-delay: {{ $loop->index * 150 }}ms;">
-                    <a href="{{ $post['url'] }}" class="block bg-gray-800/60 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <a href="{{ $post['url'] }}" class="block bg-card/60 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
                         <div class="relative">
                             <img src="{{ $post['image'] }}" alt="Imagem para o post {{ $post['title'] }}" class="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105">
-                            <div class="absolute inset-0 bg-black/30"></div>
-                            <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-sm font-semibold text-white {{ $colors['bg'] }}">{{ $post['category'] }}</span>
+                            <div class="absolute inset-0 bg-background/30"></div>
+                            <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-sm font-semibold text-foreground {{ $colors['bg'] }}">{{ $post['category'] }}</span>
                         </div>
                         <div class="p-6">
-                            <h3 class="text-xl font-bold font-serif mb-3 text-white leading-snug">{{ $post['title'] }}</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed">{{ $post['excerpt'] }}</p>
+                            <h3 class="text-xl font-bold font-serif mb-3 text-foreground leading-snug">{{ $post['title'] }}</h3>
+                            <p class="text-muted-foreground text-sm leading-relaxed">{{ $post['excerpt'] }}</p>
                         </div>
                     </a>
                 </div>

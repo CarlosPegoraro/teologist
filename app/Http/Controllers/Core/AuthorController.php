@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Core;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthorRequest;
 use App\Models\Author;
 use Illuminate\Http\RedirectResponse;
@@ -11,7 +12,7 @@ class AuthorController extends Controller
 {
     public function index(): View
     {
-        $authors = Author::paginate(15);
+        $authors = Author::withCount('blogs')->latest()->paginate(12);
         return view('authors.index', compact('authors'));
     }
 
@@ -29,7 +30,12 @@ class AuthorController extends Controller
 
     public function show(Author $author): View
     {
-        return view('authors.show', compact('author'));
+        $blogs = $author->blogs()
+            ->with('categories')
+            ->latest()
+            ->paginate(9);
+
+        return view('authors.show', compact('author', 'blogs'));
     }
 
     public function edit(Author $author): View

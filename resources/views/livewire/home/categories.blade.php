@@ -37,11 +37,11 @@ state([
 
 ?>
 
-<section class="py-20 md:py-28 bg-gray-900">
+<section class="py-20 md:py-28 bg-background">
     <div class="container mx-auto px-6">
         <div class="text-center mb-16 animate-fade-in-up">
-            <h2 class="text-3xl md:text-4xl font-bold font-serif mb-4 text-white">Áreas de Conhecimento</h2>
-            <p class="text-gray-400 text-lg max-w-2xl mx-auto">Exploramos questões fundamentais em quatro grandes áreas.</p>
+            <h2 class="text-3xl md:text-4xl font-bold font-serif mb-4 text-foreground">Áreas de Conhecimento</h2>
+            <p class="text-muted-foreground text-lg max-w-2xl mx-auto">Exploramos questões fundamentais em quatro grandes áreas.</p>
         </div>
 
         @php
@@ -49,12 +49,12 @@ state([
             $colorMap = [
                 'primary' => [
                     'border' => 'border-teal-500/20 hover:border-teal-400/50',
-                    'icon' => 'text-teal-400',
+                    'icon' => 'text-primary',
                     'glow' => 'glow-teal',
                 ],
                 'accent' => [
                     'border' => 'border-yellow-500/20 hover:border-yellow-400/50',
-                    'icon' => 'text-yellow-400',
+                    'icon' => 'text-accent',
                     'glow' => 'glow-yellow',
                 ],
                 'secondary' => [
@@ -73,7 +73,7 @@ state([
                 @endphp
                 <a
                     href="#" {{-- Substitua # pelo seu link de categoria, ex: route('categories.show', $category['slug']) --}}
-                class="group relative text-center p-8 rounded-2xl bg-gray-800/40 backdrop-blur-sm border transition-all duration-300 transform hover:-translate-y-2 {{ $colors['border'] }} {{ $colors['glow'] }}"
+                class="group relative text-center p-8 rounded-2xl bg-card/40 backdrop-blur-sm border transition-all duration-300 transform hover:-translate-y-2 {{ $colors['border'] }} {{ $colors['glow'] }}"
                     style="animation-delay: {{ 200 + $loop->index * 150 }}ms;"
                 >
                     {{-- Glow effect --}}
@@ -81,12 +81,12 @@ state([
 
                     <div class="relative z-10 flex flex-col items-center">
                         <div class="flex-shrink-0 mb-5">
-                            <div class="w-16 h-16 rounded-full bg-gray-900/50 flex items-center justify-center border border-gray-700/50">
+                            <div class="w-16 h-16 rounded-full bg-background/50 flex items-center justify-center border border-border/50">
                                 <x-dynamic-component :component="$iconComponent" class="h-8 w-8 {{ $colors['icon'] }}" />
                             </div>
                         </div>
-                        <h3 class="text-xl font-bold font-serif mb-2 text-white">{{ $category['title'] }}</h3>
-                        <p class="text-sm text-gray-400 leading-relaxed">{{ $category['description'] }}</p>
+                        <h3 class="text-xl font-bold font-serif mb-2 text-foreground">{{ $category['title'] }}</h3>
+                        <p class="text-sm text-muted-foreground leading-relaxed">{{ $category['description'] }}</p>
                     </div>
                 </a>
             @endforeach

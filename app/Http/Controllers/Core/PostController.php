@@ -1,17 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Core;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class PostController extends Controller
 {
     public function index(): View
     {
-        $posts = Post::paginate(15);
+        $posts = Post::with('user')
+            ->withCount('comments')
+            ->latest()
+            ->paginate(15);
+
         return view('posts.index', compact('posts'));
     }
 
@@ -22,13 +28,27 @@ class PostController extends Controller
 
     public function store(PostRequest $request): RedirectResponse
     {
-        $post = Post::create($request->validated());
+        $post = Auth::user()->posts()->create($request->validated());
+
         return redirect()->route('posts.show', $post)
-            ->with('success', 'Post created successfully.');
+            ->with('success', 'Sua discussão foi iniciada com sucesso!');
+    }
+
+    public function like(Post $post): RedirectResponse
+    {
+        // Incrementa o contador de likes
+        $post->increment('likes');
+
+        // Redireciona de volta para a página do post
+        return redirect()->route('posts.show', $post);
     }
 
     public function show(Post $post): View
     {
+        $post->load(['user', 'comments' => function ($query) {
+            $query->with('user')->latest();
+        }]);
+
         return view('posts.show', compact('post'));
     }
 

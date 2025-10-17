@@ -56,13 +56,55 @@
     :root {
         --background: 0 0% 100%;
         --foreground: 222.2 84% 4.9%;
-        /* ... outras variáveis de cor do seu tema */
+
+        --card: 0 0% 100%;
+        --card-foreground: 222.2 84% 4.9%;
+
+        --popover: 0 0% 100%;
+        --popover-foreground: 222.2 84% 4.9%;
+
+        --primary: 160 64% 45%; /* Teal-ish */
+        --primary-foreground: 210 40% 98%;
+
+        --secondary: 262 84% 58%; /* Indigo-ish */
+        --secondary-foreground: 210 40% 98%;
+
+        --accent: 45 93% 47%; /* Yellow-ish */
+        --accent-foreground: 222.2 84% 4.9%;
+
+        --muted: 210 40% 96.1%;
+        --muted-foreground: 215.4 16.3% 46.9%;
+
+        --border: 214.3 31.8% 91.4%;
+        --input: 214.3 31.8% 91.4%;
+        --ring: 160 64% 45%;
     }
 
     .dark {
         --background: 222.2 84% 4.9%;
         --foreground: 210 40% 98%;
-        /* ... outras variáveis de cor do seu tema escuro */
+
+        --card: 222.2 84% 4.9%;
+        --card-foreground: 210 40% 98%;
+
+        --popover: 222.2 84% 4.9%;
+        --popover-foreground: 210 40% 98%;
+
+        --primary: 160 64% 45%;
+        --primary-foreground: 210 40% 98%;
+
+        --secondary: 262 84% 58%;
+        --secondary-foreground: 210 40% 98%;
+
+        --accent: 45 93% 47%;
+        --accent-foreground: 222.2 84% 4.9%;
+
+        --muted: 217.2 32.6% 17.5%;
+        --muted-foreground: 215 20.2% 65.1%;
+
+        --border: 217.2 32.6% 17.5%;
+        --input: 217.2 32.6% 17.5%;
+        --ring: 160 64% 45%;
     }
 }
 
@@ -160,13 +202,13 @@ select:focus[data-flux-control] {
         @apply flex items-center justify-center h-10 w-10 rounded-lg text-sm font-semibold transition-colors duration-200;
     }
     .pagination a {
-        @apply text-gray-400 bg-gray-800/60 hover:bg-teal-500 hover:text-white;
+        @apply text-muted-foreground bg-card/60 hover:bg-primary hover:text-foreground;
     }
     .pagination .active span {
-        @apply bg-teal-500 text-white cursor-default;
+        @apply bg-primary text-foreground cursor-default;
     }
     .pagination .disabled span {
-        @apply bg-gray-800/40 text-gray-600 cursor-not-allowed;
+        @apply bg-card/40 text-gray-600 cursor-not-allowed;
     }
 }
 

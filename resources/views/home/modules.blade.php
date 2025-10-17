@@ -1,13 +1,13 @@
-<section class="py-20 md:py-28 bg-gray-900/50">
+<section class="py-20 md:py-28 bg-background/50">
     <div class="container mx-auto px-6">
         <div
             class="text-center mb-16 animate-fade-in-up"
             data-anim-delay="0"
         >
-            <h2 class="text-3xl md:text-4xl font-bold font-serif mb-4 text-white">
-                Três Formas de <span class="text-teal-400">Aprender</span> e <span class="text-yellow-400">Participar</span>
+            <h2 class="text-3xl md:text-4xl font-bold font-serif mb-4 text-foreground">
+                Três Formas de <span class="text-primary">Aprender</span> e <span class="text-accent">Participar</span>
             </h2>
-            <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+            <p class="text-muted-foreground text-lg max-w-2xl mx-auto">
                 Nossa plataforma oferece diferentes maneiras de se engajar com o conhecimento.
             </p>
         </div>

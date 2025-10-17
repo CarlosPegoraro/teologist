@@ -17,7 +17,7 @@
             'gradient_icon' => 'from-accent to-accent/70',
             'shadow_icon' => 'shadow-accent/30',
             'text' => 'text-accent',
-            'icon_text' => 'text-white',
+            'icon_text' => 'text-foreground',
         ],
         'secondary' => [
             'border' => 'border-secondary/30 hover:border-secondary',
@@ -26,7 +26,7 @@
             'gradient_icon' => 'from-secondary to-secondary/70',
             'shadow_icon' => 'shadow-secondary/30',
             'text' => 'text-secondary',
-            'icon_text' => 'text-white',
+            'icon_text' => 'text-foreground',
         ],
         default => [
             'border' => 'border-primary/30 hover:border-primary',
@@ -35,7 +35,7 @@
             'gradient_icon' => 'from-primary to-primary/70',
             'shadow_icon' => 'shadow-primary/30',
             'text' => 'text-primary',
-            'icon_text' => 'text-white',
+            'icon_text' => 'text-foreground',
         ],
     };
 @endphp

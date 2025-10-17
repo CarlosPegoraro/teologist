@@ -13,35 +13,33 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                // Conecta a classe 'font-serif' à sua variável --font-primary (Merriweather)
                 serif: ['var(--font-primary)', ...defaultTheme.fontFamily.serif],
-                // Conecta a classe 'font-sans' à sua variável --font-secondary (Lato)
                 sans: ['var(--font-secondary)', ...defaultTheme.fontFamily.sans],
-                // CRIA a classe 'font-reading' e a conecta à variável --font-reading (Montserrat)
                 reading: ['var(--font-reading)', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                // Também é uma boa prática mapear suas cores aqui
-                primary: 'var(--color-primary)',
-                'primary-foreground': 'var(--color-primary-foreground)',
-                secondary: 'var(--color-secondary)',
-                'secondary-foreground': 'var(--color-secondary-foreground)',
-                accent: 'var(--color-accent)',
-                'accent-foreground': 'var(--color-accent-foreground)',
-                zinc: {
-                    50: 'var(--color-zinc-50)',
-                    100: 'var(--color-zinc-100)',
-                    200: 'var(--color-zinc-200)',
-                    300: 'var(--color-zinc-300)',
-                    400: 'var(--color-zinc-400)',
-                    500: 'var(--color-zinc-500)',
-                    600: 'var(--color-zinc-600)',
-                    700: 'var(--color-zinc-700)',
-                    800: 'var(--color-zinc-800)',
-                    900: 'var(--color-zinc-900)',
-                    950: 'var(--color-zinc-950)',
-                }
-            }
+                border: 'hsl(var(--border))',
+                input: 'hsl(var(--input))',
+                ring: 'hsl(var(--ring))',
+                background: 'hsl(var(--background))',
+                foreground: 'hsl(var(--foreground))',
+                primary: {
+                    DEFAULT: 'hsl(var(--primary))',
+                    foreground: 'hsl(var(--primary-foreground))',
+                },
+                secondary: {
+                    DEFAULT: 'hsl(var(--secondary))',
+                    foreground: 'hsl(var(--secondary-foreground))',
+                },
+                accent: {
+                    DEFAULT: 'hsl(var(--accent))',
+                    foreground: 'hsl(var(--accent-foreground))',
+                },
+                muted: {
+                    DEFAULT: 'hsl(var(--muted))',
+                    foreground: 'hsl(var(--muted-foreground))',
+                },
+            },
         },
     },
 
