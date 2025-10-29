@@ -34,12 +34,29 @@
     --color-accent: oklch(68.1% 0.162 75.834);
     --color-accent-foreground: oklch(85.2% 0.199 91.936);
 
+    --color-muted: hsl(210 40% 96.1%);
+    --color-muted-foreground: hsl(215.4 16.3% 46.9%);
+
+    --color-card: 0 0% 100%;
+    --color-card-foreground: 222.2 84% 4.9%;
+
+    --color-background: 0 0% 100%;
+    --color-foreground: 222.2 84% 4.9%;
 }
 
 @layer theme {
     .dark {
         --color-accent: oklch(68.1% 0.162 75.834);
         --color-accent-foreground: oklch(85.2% 0.199 91.936);
+
+        --color-muted: hsl(210 40% 96.1%);
+        --color-muted-foreground: hsl(215.4 16.3% 46.9%);
+
+        --color-card: 222.2 84% 4.9%;
+        --color-card-foreground: 210 40% 98%;
+
+        --color-background: 222.2 84% 4.9%;
+        --color-foreground: 210 40% 98%;
     }
 }
 
@@ -72,8 +89,8 @@
         --accent: 45 93% 47%; /* Yellow-ish */
         --accent-foreground: 222.2 84% 4.9%;
 
-        --muted: 210 40% 96.1%;
-        --muted-foreground: 215.4 16.3% 46.9%;
+        --color-muted: hsl(217.2 32.6% 17.5%);
+        --color-muted-foreground: hsl(215 20.2% 65.1%);
 
         --border: 214.3 31.8% 91.4%;
         --input: 214.3 31.8% 91.4%;
@@ -99,8 +116,8 @@
         --accent: 45 93% 47%;
         --accent-foreground: 222.2 84% 4.9%;
 
-        --muted: 217.2 32.6% 17.5%;
-        --muted-foreground: 215 20.2% 65.1%;
+        --color-muted: hsl(217.2 32.6% 17.5%);
+        --color-muted-foreground: hsl(215 20.2% 65.1%);
 
         --border: 217.2 32.6% 17.5%;
         --input: 217.2 32.6% 17.5%;

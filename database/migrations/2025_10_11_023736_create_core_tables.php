@@ -40,12 +40,13 @@ return new class extends Migration
             $table->string('title');
             $table->string('subtitle');
             $table->string('about');
-            $table->string('thumbnail');
+            $table->string('thumbnail')->nullable();
             $table->foreignId('author_id')->constrained()->onDelete('set null');
             $table->timestamps();
         });
 
         Schema::create('blogs_contents', function (Blueprint $table) {
+            $table->id();
             $table->text('content');
             $table->integer('order');
             $table->foreignId('blog_id')->constrained()->onDelete('cascade');
@@ -60,7 +61,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('content');
+            $table->text('content');
             $table->integer('likes')->default(0);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();

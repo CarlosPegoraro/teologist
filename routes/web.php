@@ -56,5 +56,8 @@ Route::middleware(['auth'])->group(function () {
         ->name('two-factor.show');
 });
 
+Route::middleware(['role:author', 'role:admin'])->group(function () {
+    Route::resource('blogs', BlogController::class)->only(['create', 'store', 'edit', 'update']);
+});
 
 require __DIR__.'/auth.php';
