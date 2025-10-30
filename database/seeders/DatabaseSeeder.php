@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -18,36 +19,45 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $mainUser = User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => Hash::make('password'),
-        ]);
+        if (config('app.env') !== 'production') {
+            $mainUser = User::factory()->create([
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'password' => Hash::make('password'),
+            ]);
 
-        User::factory(10)->create();
+            User::factory(10)->create();
 
-        Category::factory(15)->create();
+            Category::factory(15)->create();
 
-        Author::factory(5)
-            ->has(\App\Models\Blog::factory()->count(3))
-            ->create();
+            Author::factory(5)
+                ->has(\App\Models\Blog::factory()->count(3))
+                ->create();
 
-        Post::factory(30)
-            ->recycle(User::all())
-            ->create();
+            Post::factory(30)
+                ->recycle(User::all())
+                ->create();
 
-        \App\Models\Comment::factory(100)
-            ->recycle(User::all())
-            ->recycle(Post::all())
-            ->create();
+            \App\Models\Comment::factory(100)
+                ->recycle(User::all())
+                ->recycle(Post::all())
+                ->create();
 
-        $this->call(RoleSeeder::class);
+            $this->call(RoleSeeder::class);
 
-        $mainUser->assignRole('admin');
+            $mainUser->assignRole('admin');
 
-        $this->command->info('Database seeded successfully!');
-        $this->command->info('Main user created:');
-        $this->command->info('Email: test@example.com');
-        $this->command->info('Password: password');
+            $this->command->info('Database seeded successfully!');
+            $this->command->info('Main user created:');
+            $this->command->info('Email: test@example.com');
+            $this->command->info('Password: password');
+        } else {
+            $mainUser = User::factory()->create([
+                'name' => 'Carlos Pegoraro',
+                'email' => 'carlospegorarolopes@gmail.com',
+                'password' => Hash::make('password'),
+            ]);
+            $mainUser->assignRole('admin');
+        }
     }
 }
