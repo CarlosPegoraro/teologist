@@ -57,7 +57,12 @@ class DatabaseSeeder extends Seeder
                 'email' => 'carlospegorarolopes@gmail.com',
                 'password' => Hash::make('password'),
             ]);
+
+            $this->call(RoleSeeder::class);
+
             $mainUser->assignRole('admin');
+
+            $this->command->info('Database seeded successfully!');
         }
     }
 }
