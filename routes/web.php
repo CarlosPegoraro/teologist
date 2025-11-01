@@ -27,7 +27,7 @@ Route::middleware(['auth'])->group(function () {
     // Fórum: criar, comentar e gerenciar próprios posts/comentários
     Route::get('posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::get('posts/{post}', [PostController::class, 'show'])
-        ->whereNumber('post');
+        ->whereNumber('post')->name('posts.show');
     Route::post('posts', [PostController::class, 'store'])->name('posts.store');
     Route::put('posts/{post}', [PostController::class, 'update'])->name('posts.update');
     Route::patch('posts/{post}', [PostController::class, 'update']);
