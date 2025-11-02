@@ -29,7 +29,7 @@
                 @endguest
 
                 @auth
-                    <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-4 ">
                         <button @click="theme = (theme === 'dark' ? 'light' : 'dark')"
                                 class="text-muted-foreground hover:text-foreground transition-colors">
                             <x-lucide-sun class="h-6 w-6" x-show="theme === 'dark'" style="display: none;"/>
@@ -50,7 +50,7 @@
                                  x-transition:leave="transition ease-in duration-150"
                                  x-transition:leave-start="opacity-100 transform translate-y-0"
                                  x-transition:leave-end="opacity-0 transform -translate-y-2"
-                                 class="absolute right-0 mt-2 w-48 bg-card rounded-md shadow-lg py-1 border border-border"
+                                 class="absolute right-0 mt-5 w-48 bg-card rounded-md shadow-lg py-1 border border-border bg-background/70 backdrop-blur-lg"
                                  style="display: none;">
 
                                 @hasanyrole('admin|supervisor|author')
@@ -114,7 +114,7 @@
                                 <div class="text-sm font-medium text-muted-foreground">{{ Auth::user()->email }}</div>
                             </div>
                         </div>
-                        <div class="mt-3 space-y-1 px-2">
+                        <div class="mt-5 space-y-1 px-2 bg-background/70 backdrop-blur-lg">
                             @hasanyrole('admin|supervisor|author')
                             <a href="{{ route('admin.dashboard') }}"
                                class="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-card hover:text-foreground">Dashboard</a>
