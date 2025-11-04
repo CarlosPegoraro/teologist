@@ -11,10 +11,18 @@
 
             {{-- Desktop Navigation --}}
             <div class="hidden md:flex items-center space-x-8">
+                <a href="{{ route('home') }}" wire:navigate
+                   class="text-sm font-semibold {{ request()->routeIs('blogs.*') ? 'text-foreground' : 'text-muted-foreground' }}
+                   hover:text-foreground transition-colors">Home</a>
                 <a href="{{ route('blogs.index') }}" wire:navigate
-                   class="text-sm font-semibold {{ request()->routeIs('blogs.*') ? 'text-foreground' : 'text-muted-foreground' }} hover:text-foreground transition-colors">Blog</a>
+                   class="text-sm font-semibold {{ request()->routeIs('blogs.*') ? 'text-foreground' : 'text-muted-foreground' }}
+                   hover:text-foreground transition-colors">Bibliothēkē</a>
+                <a href="{{ route('posts.index') }}" wire:navigate
+                   class="text-sm font-semibold {{ request()->routeIs('posts.*') ? 'text-foreground' : 'text-muted-foreground' }}
+                   hover:text-foreground transition-colors">Ágora</a>
                 <a href="{{ route('authors.index') }}" wire:navigate
-                   class="text-sm font-semibold {{ request()->routeIs('authors.*') ? 'text-foreground' : 'text-muted-foreground' }} hover:text-foreground transition-colors">Colaboradores</a>
+                   class="text-sm font-semibold {{ request()->routeIs('authors.*') ? 'text-foreground' : 'text-muted-foreground' }}
+                   hover:text-foreground transition-colors">Colaboradores</a>
                 {{-- Adicione a rota do fórum aqui quando tiver --}}
                 {{-- <a href="#" class="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors">Fórum</a> --}}
             </div>

@@ -37,7 +37,7 @@ new #[Layout('components.layouts.auth')] #[Title('Register – Phrónesis')] cla
 
         Session::regenerate();
 
-        $this->redirectIntended(route('dashboard', absolute: false), navigate: true);
+        $this->redirectIntended(route('home', absolute: false), navigate: true);
     }
 }; ?>
 

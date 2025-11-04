@@ -40,14 +40,14 @@
             >
                 <a
                     href="{{ route('blogs.index') }}"
-                    class="group inline-flex items-center justify-center bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 h-12 rounded-lg shadow-lg shadow-primary/20 transition-all duration-300 transform hover:-translate-y-1"
+                    class="group inline-flex items-center justify-center bg-primary/60 hover:bg-primary/70 text-primary-foreground hover:text-emerald-100 font-semibold px-8 h-12 rounded-lg shadow-lg shadow-primary/20 transition-all duration-300 transform hover:-translate-y-1"
                 >
                     Explorar Blog
                     <x-lucide-arrow-right class="ml-2 h-5 w-5 transform transition-transform duration-300 group-hover:translate-x-1"/>
                 </a>
                 <a
                     href="{{ route('posts.index') }}"
-                    class="group inline-flex items-center justify-center border-2 border-border hover:border-accent hover:bg-accent/10 text-muted-foreground hover:text-accent font-semibold px-8 h-12 rounded-lg transition-all duration-300 transform hover:-translate-y-1"
+                    class="group inline-flex items-center justify-center border-2 border-accent hover:border-accent hover:bg-accent/10 text-accent hover:text-accent-foreground font-semibold px-8 h-12 rounded-lg transition-all duration-300 transform hover:-translate-y-1"
                 >
                     Participar do Fórum
                     <x-lucide-users class="ml-2 h-5 w-5 transform transition-transform duration-300 group-hover:scale-110"/>
