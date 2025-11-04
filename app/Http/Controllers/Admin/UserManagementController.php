@@ -26,6 +26,13 @@ class UserManagementController extends Controller
 
         $user->syncRoles($request->role);
 
+        if ($request->input('role') === 'author') {
+            $user->author()->create([
+                'name' => $user->name,
+                'email' => $user->email
+            ]);
+        }
+
         return redirect()->route('admin.users.index')->with('success', 'Cargo do usuário atualizado com sucesso.');
     }
 }

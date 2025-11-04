@@ -16,6 +16,10 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
+
+
+
+
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
@@ -28,6 +32,23 @@ class ProfileController extends Controller
         }
 
         $user->update($data);
+
+        if ($user->roles()->first()->name === 'author') {
+            $authorData = $request->only([
+                'site',
+                'instagram',
+                'phone',
+                'about',
+                'title',
+            ]);
+
+            $authorData = array_merge($authorData, [
+                'name' => $user->name,
+                'email' => $user->email,
+            ]);
+
+            $author = $user->author->update($authorData);
+        }
 
         return back()->with('success', 'Perfil atualizado com sucesso!');
     }

@@ -11,13 +11,15 @@
 
             {{-- Alerts --}}
             @if (session('success'))
-                <div class="mb-6 rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm text-emerald-300">
+                <div
+                    class="mb-6 rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm text-emerald-300">
                     {{ session('success') }}
                 </div>
             @endif
 
             @if ($errors->any())
-                <div class="mb-6 rounded-lg border border-destructive/40 bg-destructive/10 p-4 text-sm text-destructive">
+                <div
+                    class="mb-6 rounded-lg border border-destructive/40 bg-destructive/10 p-4 text-sm text-destructive">
                     <p class="font-semibold mb-2">Corrija os erros abaixo:</p>
                     <ul class="list-disc pl-5 space-y-1">
                         @foreach ($errors->all() as $error)
@@ -50,7 +52,8 @@
                         </div>
 
                         <div class="sm:col-span-4">
-                            <label for="email" class="block text-sm font-medium leading-6 text-foreground">E-mail</label>
+                            <label for="email"
+                                   class="block text-sm font-medium leading-6 text-foreground">E-mail</label>
                             <input
                                 type="email"
                                 id="email"
@@ -69,12 +72,13 @@
                         </div>
 
                         <div class="sm:col-span-2">
-                            <label for="birth_date" class="block text-sm font-medium leading-6 text-foreground">Data de Nascimento</label>
+                            <label for="birth_date" class="block text-sm font-medium leading-6 text-foreground">Data de
+                                Nascimento</label>
                             <input
                                 type="date"
                                 id="birth_date"
                                 name="birth_date"
-                                value="{{ old('birth_date', optional($user->birth_date)->format('Y-m-d')) }}"
+                                value="{{ old('birth_date', $user->birth_date) }}"
                                 class="mt-2 block w-full bg-background/50 border border-border rounded-md py-2 px-3 text-foreground focus:ring-2 focus:ring-inset focus:ring-teal-500"
                             >
                         </div>
@@ -90,7 +94,8 @@
 
                     <div class="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-3">
-                            <label for="password" class="block text-sm font-medium leading-6 text-foreground">Nova senha</label>
+                            <label for="password" class="block text-sm font-medium leading-6 text-foreground">Nova
+                                senha</label>
                             <div class="mt-2 relative">
                                 <input
                                     :type="showPass ? 'text' : 'password'"
@@ -108,7 +113,9 @@
                         </div>
 
                         <div class="sm:col-span-3">
-                            <label for="password_confirmation" class="block text-sm font-medium leading-6 text-foreground">Confirmar nova senha</label>
+                            <label for="password_confirmation"
+                                   class="block text-sm font-medium leading-6 text-foreground">Confirmar nova
+                                senha</label>
                             <div class="mt-2 relative">
                                 <input
                                     :type="showPassConf ? 'text' : 'password'"
@@ -136,9 +143,82 @@
                     --}}
                 </div>
 
+                @if(auth()->user()->roles()->first()?->name === 'author')
+                    @php($author = auth()->user()->author)
+                    <div class="bg-card/50 backdrop-blur-sm p-8 rounded-xl border border-border">
+                        <h2 class="text-xl font-semibold text-foreground">Dados do Autor</h2>
+                        <p class="mt-1 text-sm text-muted-foreground">Site, Instagram, Telefone, Sobre e Titulo.</p>
+
+                        <div class="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                            <div class="sm:col-span-4">
+                                <label for="site"
+                                       class="block text-sm font-medium leading-6 text-foreground">Site</label>
+                                <input
+                                    type="text"
+                                    id="site"
+                                    name="site"
+                                    value="{{ old('site', $author->site) }}"
+                                    required
+                                    class="mt-2 block w-full bg-background/50 border border-border rounded-md py-2 px-3 text-foreground focus:ring-2 focus:ring-inset focus:ring-teal-500"
+                                >
+                            </div>
+
+                            <div class="sm:col-span-4">
+                                <label for="instagram"
+                                       class="block text-sm font-medium leading-6 text-foreground">Instagram</label>
+                                <input
+                                    type="text"
+                                    id="instagram"
+                                    name="instagram"
+                                    value="{{ old('instagram', $author->instagram) }}"
+                                    required
+                                    class="mt-2 block w-full bg-background/50 border border-border rounded-md py-2 px-3 text-foreground focus:ring-2 focus:ring-inset focus:ring-teal-500"
+                                >
+                            </div>
+                            <div class="sm:col-span-4">
+                                <label for="phone"
+                                       class="block text-sm font-medium leading-6 text-foreground">Telefone</label>
+                                <input
+                                    type="text"
+                                    id="phone"
+                                    name="phone"
+                                    value="{{ old('phone', $author->phone) }}"
+                                    required
+                                    class="mt-2 block w-full bg-background/50 border border-border rounded-md py-2 px-3 text-foreground focus:ring-2 focus:ring-inset focus:ring-teal-500"
+                                >
+                            </div>
+                            <div class="sm:col-span-4">
+                                <label for="title"
+                                       class="block text-sm font-medium leading-6 text-foreground">Titulo</label>
+                                <input
+                                    type="text"
+                                    id="title"
+                                    name="title"
+                                    value="{{ old('title', $author->title) }}"
+                                    required
+                                    class="mt-2 block w-full bg-background/50 border border-border rounded-md py-2 px-3 text-foreground focus:ring-2 focus:ring-inset focus:ring-teal-500"
+                                >
+                            </div>
+                            <div class="sm:col-span-4">
+                                <label for="about"
+                                       class="block text-sm font-medium leading-6 text-foreground">Uma breve descrição sobre você</label>
+                                <input
+                                    type="text"
+                                    id="about"
+                                    name="about"
+                                    value="{{ old('about', $author->about) }}"
+                                    required
+                                    class="mt-2 block w-full bg-background/50 border border-border rounded-md py-2 px-3 text-foreground focus:ring-2 focus:ring-inset focus:ring-teal-500"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 {{-- Actions --}}
                 <div class="flex items-center justify-between">
-                    <a href="{{ url()->previous() }}" class="text-sm font-medium text-muted-foreground hover:text-foreground">Cancelar</a>
+                    <a href="{{ url()->previous() }}"
+                       class="text-sm font-medium text-muted-foreground hover:text-foreground">Cancelar</a>
                     <button type="submit"
                             class="inline-flex items-center justify-center bg-primary hover:bg-teal-600 text-foreground font-semibold px-6 h-10 rounded-lg shadow-lg shadow-teal-500/20 transition-all duration-300">
                         Salvar alterações
