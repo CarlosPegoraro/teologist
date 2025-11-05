@@ -33,7 +33,7 @@ class ProfileController extends Controller
 
         $user->update($data);
 
-        if ($user->roles()->first()->name === 'author') {
+        if ($user->roles()->first()->name === 'author' || $user->roles()->first()->name === 'admin') {
             $authorData = $request->only([
                 'site',
                 'instagram',

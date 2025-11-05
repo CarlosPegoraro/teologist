@@ -26,7 +26,7 @@ class UserManagementController extends Controller
 
         $user->syncRoles($request->role);
 
-        if ($request->input('role') === 'author') {
+        if ($request->input('role') === 'author' || $request->input('role') === 'admin') {
             $user->author()->create([
                 'name' => $user->name,
                 'email' => $user->email

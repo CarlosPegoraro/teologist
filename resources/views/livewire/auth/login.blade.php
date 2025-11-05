@@ -64,7 +64,7 @@ new #[Layout('components.layouts.auth')] #[Title('Login – Phrónesis')] class 
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'password' => 'Credenciais Inválidas',
+                'email' => 'Credenciais Inválidas',
             ]);
         }
 
