@@ -59,6 +59,7 @@
                                 <form
                                     action="{{ route('admin.users.update', $user) }}"
                                     method="POST"
+                                    x-data="{ changed: false }"
                                     class="flex items-center gap-2"
                                 >
                                     @csrf
@@ -67,22 +68,22 @@
                                     <select
                                         name="role"
                                         class="block w-56 border border-border text-accent rounded-md py-2 px-3 focus:ring-2 focus:ring-inset focus:ring-teal-500"
-                                        onchange="this.form.submit()"
+                                        @change="changed = true"
                                     >
                                         <option value="" disabled {{ $currentRole ? '' : 'selected' }}>
                                             Selecione um cargo…
                                         </option>
 
                                         @foreach($availableRoles as $role)
-                                            <option value="{{ $role->name }}" @selected($currentRole === $role->name)">
-                                            {{ $role->name }}
+                                            <option value="{{ $role->name }}" @selected($currentRole === $role->name)>
+                                                {{ $role->name }}
                                             </option>
                                         @endforeach
                                     </select>
 
-                                    {{-- Botão (progressive enhancement / caso JS desligado) --}}
                                     <button type="submit"
-                                            class="hidden md:inline-flex items-center justify-center h-9 px-3 rounded-md border border-border bg-card/60 hover:bg-card text-foreground text-sm">
+                                            :disabled="!changed"
+                                            class="inline-flex items-center justify-center h-9 px-3 rounded-md border border-border bg-card/60 hover:bg-card text-foreground text-sm disabled:opacity-50 disabled:cursor-not-allowed">
                                         Atualizar
                                     </button>
                                 </form>
