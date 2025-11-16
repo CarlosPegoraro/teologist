@@ -9,6 +9,7 @@ use App\Models\Blog;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class BlogController extends Controller
@@ -27,24 +28,38 @@ class BlogController extends Controller
         return view('blogs.create', compact('authors', 'categories'));
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'subtitle' => 'nullable|string|max:255',
-            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'author_id' => 'required|exists:users,id',
-            'contents' => 'array',
+            'title'      => 'required|string|max:255',
+            'subtitle'   => 'nullable|string|max:255',
+            'thumbnail'  => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'author_id'  => 'required|exists:users,id',
+            'content'    => 'required|string', // string JSON vinda do Quill
             'categories' => 'nullable|array',
             'categories.*' => 'exists:categories,id',
         ]);
 
+        // Decodifica string JSON -> array (Delta)
+        $delta = json_decode($validatedData['content'], true, 512, JSON_THROW_ON_ERROR);
+
+        // Extrai texto plano do Delta para usar no "about"
+        $plainText = $delta['ops'][0]['insert'] ?? '';
+
+        $about = Str::limit(
+            trim(preg_replace('/\s+/', ' ', $plainText)),
+            150
+        );
 
         $blogData = [
-            'title' => $validatedData['title'],
-            'subtitle' => $validatedData['subtitle'],
+            'title'     => $validatedData['title'],
+            'subtitle'  => $validatedData['subtitle'],
             'author_id' => $validatedData['author_id'],
-            'about' => \Illuminate\Support\Str::limit($validatedData['contents'][0], 150),
+            'content'   => $delta,   // <<-- array, não string
+            'about'     => $about,
         ];
 
         if ($request->hasFile('thumbnail')) {
@@ -54,25 +69,14 @@ class BlogController extends Controller
 
         $blog = Blog::create($blogData);
 
-        foreach ($validatedData['contents'] as $key => $content) {
-            $blog->contents()->create([
-                'content' => $content,
-                'order' => $key,
-            ]);
-        }
-
-        if ($request->has('categories')) {
-            $blog->categories()->sync($request->input('categories'));
-        }
-
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully.');
+        return redirect()
+            ->route('admin.blogs.index')
+            ->with('success', 'Blog created successfully.');
     }
 
     public function show(Blog $blog): View
     {
-        $blog->load(['author', 'categories', 'contents' => function ($query) {
-            $query->orderBy('order', 'asc');
-        }]);
+        $blog->load(['author', 'categories']);
 
         return view('blogs.show', compact('blog'));
     }

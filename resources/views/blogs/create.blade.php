@@ -45,45 +45,20 @@
                             <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                             @enderror
                         </div>
+                        <div class="mb-4">
+                            <label for="subtitle" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Conteudo
+                            </label>
 
-                        <div class="mb-6">
-                            <div class="flex items-center justify-between mb-4">
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Seções de
-                                    Conteúdo</label>
-                                <button type="button" id="addSectionBtn"
-                                        class="px-3 py-1 text-sm bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    + Adicionar Seção
-                                </button>
-                            </div>
+                            <div class="section-item bg-gray-50 dark:bg-gray-900 p-4" id="contentEditor"></div>
 
-                            <div id="sectionsContainer" class="space-y-4">
-                                <!-- Seção padrão (obrigatória) -->
-                                <div
-                                    class="section-item bg-gray-50 dark:bg-gray-900 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                                    <div class="flex items-center justify-between mb-3">
-                                        <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Seção <span
-                                                class="section-number">1</span></span>
-                                        <button type="button"
-                                                class="remove-section text-red-600 hover:text-red-800 text-sm hidden">
-                                            Remover
-                                        </button>
-                                    </div>
-                                    <textarea name="contents[]"
-                                              rows="6"
-                                              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 p-3"
-                                              placeholder="Digite o conteúdo desta seção..."
-                                              required>{{ old('contents.0') }}</textarea>
-                                </div>
-                            </div>
+                            <input type="hidden" name="content" id="content"
+                                   value="{{ old('content', $post->content ?? '') }}"/>
 
-                            @error('contents')
-                            <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
-                            @enderror
-                            @error('contents.*')
-                            <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
+                            @error('subtitle')
+                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                             @enderror
                         </div>
-
 
                         <!-- Thumbnail -->
                         <div class="mb-4">
@@ -148,64 +123,45 @@
 </x-layouts.app>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const container = document.getElementById('sectionsContainer');
-        const addBtn = document.getElementById('addSectionBtn');
-        let sectionCount = 1;
-
-        addBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            addSection();
+    (function () {
+        const quill = new Quill('#contentEditor', {
+            debug: 'info',
+            modules: {toolbar: true},
+            placeholder: 'Escreva seu texto...',
+            theme: 'snow'
         });
 
-        function addSection() {
-            sectionCount++;
-            const sectionHtml = `
-                                        <div class="section-item bg-gray-50 dark:bg-gray-900 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                                            <div class="flex items-center justify-between mb-3">
-                                                <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Seção <span class="section-number">${sectionCount}</span></span>
-                                                <button type="button" class="remove-section text-red-600 hover:text-red-800 text-sm">
-                                                    Remover
-                                                </button>
-                                            </div>
-                                            <textarea name="contents[]"
-                                                      rows="6"
-                                                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 p-3"
-                                                      placeholder="Digite o conteúdo desta seção..."
-                                                      required></textarea>
-                                        </div>
-                                    `;
-            container.insertAdjacentHTML('beforeend', sectionHtml);
-            updateRemoveButtons();
+        const hiddenInput = document.getElementById('content');
+        const parentForm = document.getElementById('contentEditor')?.closest('form');
+
+        const initial = (hiddenInput?.value || '').trim();
+        if (initial) {
+            try {
+                const maybeDelta = JSON.parse(initial);
+                quill.setContents(maybeDelta); // Delta
+            } catch (e) {
+                // HTML
+                quill.clipboard.dangerouslyPasteHTML(initial);
+            }
         }
 
-        function updateRemoveButtons() {
-            const sections = container.querySelectorAll('.section-item');
-            sections.forEach((section, index) => {
-                const removeBtn = section.querySelector('.remove-section');
-                // Não permite remover a primeira seção
-                if (index === 0) {
-                    removeBtn.classList.add('hidden');
-                } else {
-                    removeBtn.classList.remove('hidden');
-                    removeBtn.onclick = function (e) {
-                        e.preventDefault();
-                        section.remove();
-                        updateSectionNumbers();
-                    };
-                }
+        function syncAsDelta() {
+            const delta = quill.getContents();
+            hiddenInput.value = JSON.stringify(delta);
+        }
+
+        const sync = syncAsDelta;
+
+        let t;
+        quill.on('text-change', function () {
+            clearTimeout(t);
+            t = setTimeout(sync, 150);
+        });
+
+        if (parentForm) {
+            parentForm.addEventListener('submit', function () {
+                sync();
             });
         }
-
-        function updateSectionNumbers() {
-            const sections = container.querySelectorAll('.section-item');
-            sections.forEach((section, index) => {
-                const numberSpan = section.querySelector('.section-number');
-                numberSpan.textContent = index + 1;
-            });
-            sectionCount = sections.length;
-        }
-
-        updateRemoveButtons();
-    });
+    })();
 </script>

@@ -25,6 +25,7 @@ class BlogFactory extends Factory
             'about' => $this->faker->paragraph,
             'thumbnail' => $this->faker->imageUrl,
             'author_id' => Author::factory(),
+            'content' => json_encode($this->faker->paragraphs(10, true)),
         ];
     }
 

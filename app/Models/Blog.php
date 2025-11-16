@@ -18,6 +18,11 @@ class Blog extends Model
         'about',
         'thumbnail',
         'author_id',
+        'content'
+    ];
+
+    protected $casts = [
+        'content' => 'array',
     ];
 
     public function author(): BelongsTo

@@ -24,7 +24,6 @@ Route::get('posts/{post}/comments', [CommentController::class, 'index'])->name('
 
 // --- ROTAS PARA USUÁRIOS AUTENTICADOS ---
 Route::middleware(['auth'])->group(function () {
-    // Fórum: criar, comentar e gerenciar próprios posts/comentários
     Route::get('posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::get('posts/{post}', [PostController::class, 'show'])
         ->whereNumber('post')->name('posts.show');
@@ -44,8 +43,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 });
 
-Route::middleware(['role:author', 'role:admin'])->group(function () {
-    Route::resource('blogs', BlogController::class)->only(['create', 'store', 'edit', 'update']);
+Route::middleware(['role:admin|author'])->group(function () {
+    Route::resource('blogs', BlogController::class)->only(['create', 'store', 'edit', 'update', 'destroy']);
 });
 
 require __DIR__.'/auth.php';

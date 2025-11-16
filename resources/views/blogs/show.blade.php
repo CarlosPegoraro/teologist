@@ -35,11 +35,30 @@
             <div class="prose prose-invert prose-lg max-w-3xl mx-auto">
                 <blockquote class="text-2xl font-bold mb-4">{{ $blog->about }}</blockquote>
 
-                @foreach($blog->contents()->orderBy('order')->get() as $content)
-                    <div class="text-md mb-4">
-                        {!! $content->content !!}
-                    </div>
-                @endforeach
+                <div id="viewer" class="ql-snow"></div>
+
+                <script>
+                    (function () {
+                        const viewer = new Quill('#viewer', {
+                            readOnly: true,
+                            theme: 'snow',
+                            modules: { toolbar: false },
+                        });
+
+                        viewer.setContents(@json($blog->content));
+                    })();
+                </script>
+
+                <style>
+                    #viewer {
+                        padding: 0;
+                        min-height: 120px;
+                        font-size: 1rem;
+                        line-height: 1.6;
+                        border-width: 0;
+                    }
+                </style>
+
             </div>
         </div>
     </article>
@@ -71,3 +90,10 @@
     </div>
 
 </x-layouts.app>
+
+<script>
+    (function () {
+        const viewer = new Quill('#viewer', {readOnly: true, theme: 'snow', modules: {toolbar: false}});
+        viewer.setContents(@json($blog->content));
+    })();
+</script>
