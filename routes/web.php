@@ -4,6 +4,7 @@ use App\Http\Controllers\Core\AuthorController;
 use App\Http\Controllers\Core\BlogController;
 use App\Http\Controllers\Core\CategoryController;
 use App\Http\Controllers\Core\CommentController;
+use App\Http\Controllers\Core\NewsletterController;
 use App\Http\Controllers\Core\PostController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -19,10 +20,10 @@ Route::resource('blogs', BlogController::class)->only(['index', 'show']);
 Route::resource('authors', AuthorController::class)->only(['index', 'show']);
 Route::resource('categories', CategoryController::class)->only(['index', 'show']);
 Route::resource('posts', PostController::class)->only(['index', 'show']);
+Route::resource('newsletter', NewsletterController::class)->only(['index', 'show']);
 Route::get('posts/{post}/comments', [CommentController::class, 'index'])->name('posts.comments.index');
 
 
-// --- ROTAS PARA USUÁRIOS AUTENTICADOS ---
 Route::middleware(['auth'])->group(function () {
     Route::get('posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::get('posts/{post}', [PostController::class, 'show'])
