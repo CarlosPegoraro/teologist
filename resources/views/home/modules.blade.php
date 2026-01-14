@@ -40,8 +40,8 @@
             <x-card
                 :icon="'newspaper'"
                 :title="'Efimeris'"
-                :route="'posts.index'"
-                :linkMessage="'Em Breve'"
+                :route="'newsletter.index'"
+                :linkMessage="'Ler Noticias'"
                 :color="'secondary'"
                 class="animate-fade-in-up md:col-span-2 lg:col-span-1"
                 style="animation-delay: 500ms;"
