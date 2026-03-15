@@ -16,9 +16,9 @@ class RoleSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // Cria os papéis
-        Role::create(['name' => 'admin']);
-        Role::create(['name' => 'supervisor']);
-        Role::create(['name' => 'author']);
-        Role::create(['name' => 'user']);
+        Role::findOrCreate('admin', 'web');
+        Role::findOrCreate('supervisor', 'web');
+        Role::findOrCreate('author', 'web');
+        Role::findOrCreate('user', 'web');
     }
 }

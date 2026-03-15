@@ -9,6 +9,7 @@ use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Volt\Component;
+use Spatie\Permission\Models\Role;
 
 new #[Layout('components.layouts.auth')] #[Title('Register – Phrónesis')] class extends Component {
     public string $name = '';
@@ -31,6 +32,7 @@ new #[Layout('components.layouts.auth')] #[Title('Register – Phrónesis')] cla
 
         event(new Registered(($user = User::create($validated))));
 
+        Role::findOrCreate('user', 'web');
         $user->assignRole('user');
 
         Auth::login($user);
@@ -54,7 +56,7 @@ new #[Layout('components.layouts.auth')] #[Title('Register – Phrónesis')] cla
     <form wire:submit="register" class="space-y-6">
         {{-- Name --}}
         <div>
-            <label for="name" class="block text-sm font-medium text-gray-300 sr-only">{{ __('Name') }}</label>
+            <label for="name" class="block text-sm font-medium text-muted-foreground sr-only">{{ __('Name') }}</label>
             <input wire:model="name" id="name" type="text" autocomplete="name" required autofocus placeholder="Full name"
                    class="block w-full bg-background/50 border-border rounded-md py-2.5 px-3 text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm transition">
             @error('name') <span class="text-red-400 text-sm mt-2">{{ $message }}</span> @enderror
@@ -62,7 +64,7 @@ new #[Layout('components.layouts.auth')] #[Title('Register – Phrónesis')] cla
 
         {{-- Email Address --}}
         <div>
-            <label for="email" class="block text-sm font-medium text-gray-300 sr-only">{{ __('Email address') }}</label>
+            <label for="email" class="block text-sm font-medium text-muted-foreground sr-only">{{ __('Email address') }}</label>
             <input wire:model="email" id="email" type="email" autocomplete="email" required placeholder="email@example.com"
                    class="block w-full bg-background/50 border-border rounded-md py-2.5 px-3 text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm transition">
             @error('email') <span class="text-red-400 text-sm mt-2">{{ $message }}</span> @enderror
@@ -70,7 +72,7 @@ new #[Layout('components.layouts.auth')] #[Title('Register – Phrónesis')] cla
 
         {{-- Password --}}
         <div>
-            <label for="password" class="block text-sm font-medium text-gray-300 sr-only">{{ __('Password') }}</label>
+            <label for="password" class="block text-sm font-medium text-muted-foreground sr-only">{{ __('Password') }}</label>
             <input wire:model="password" id="password" type="password" autocomplete="new-password" required placeholder="Password"
                    class="block w-full bg-background/50 border-border rounded-md py-2.5 px-3 text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm transition">
             @error('password') <span class="text-red-400 text-sm mt-2">{{ $message }}</span> @enderror
@@ -78,7 +80,7 @@ new #[Layout('components.layouts.auth')] #[Title('Register – Phrónesis')] cla
 
         {{-- Confirm Password --}}
         <div>
-            <label for="password_confirmation" class="block text-sm font-medium text-gray-300 sr-only">{{ __('Confirm password') }}</label>
+            <label for="password_confirmation" class="block text-sm font-medium text-muted-foreground sr-only">{{ __('Confirm password') }}</label>
             <input wire:model="password_confirmation" id="password_confirmation" type="password" autocomplete="new-password" required placeholder="Confirm password"
                    class="block w-full bg-background/50 border-border rounded-md py-2.5 px-3 text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm transition">
         </div>

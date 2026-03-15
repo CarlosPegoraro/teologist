@@ -117,7 +117,7 @@ new #[Layout('components.layouts.auth')] #[Title('Login – Phrónesis')] class 
     <form wire:submit="login" class="space-y-6">
         {{-- Email Address --}}
         <div>
-            <label for="email" class="block text-sm font-medium text-gray-300 sr-only">{{ __('Email address') }}</label>
+            <label for="email" class="block text-sm font-medium text-muted-foreground sr-only">{{ __('Email address') }}</label>
             <input wire:model="email" id="email" type="email" autocomplete="email" required autofocus placeholder="email@example.com"
                    class="block w-full bg-background/50 border-border rounded-md py-2.5 px-3 text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm transition">
             @error('email') <span class="text-red-400 text-sm mt-2">{{ $message }}</span> @enderror
@@ -126,7 +126,7 @@ new #[Layout('components.layouts.auth')] #[Title('Login – Phrónesis')] class 
         {{-- Password --}}
         <div>
             <div class="flex items-center justify-between">
-                <label for="password" class="block text-sm font-medium text-gray-300 sr-only">{{ __('Password') }}</label>
+                <label for="password" class="block text-sm font-medium text-muted-foreground sr-only">{{ __('Password') }}</label>
                 @if (Route::has('password.request'))
                     <a href="{{ route('password.request') }}" wire:navigate class="text-sm font-semibold text-primary hover:text-teal-300 transition-colors ml-auto">
                         {{ __('Forgot your password?') }}
@@ -142,7 +142,7 @@ new #[Layout('components.layouts.auth')] #[Title('Login – Phrónesis')] class 
         {{-- Remember Me --}}
         <div class="flex items-center">
             <input wire:model="remember" id="remember" type="checkbox" class="h-4 w-4 rounded border-gray-600 bg-card text-teal-500 focus:ring-teal-600 cursor-pointer">
-            <label for="remember" class="ml-3 block text-sm text-gray-300 cursor-pointer">{{ __('Remember me') }}</label>
+            <label for="remember" class="ml-3 block text-sm text-muted-foreground cursor-pointer">{{ __('Remember me') }}</label>
         </div>
 
         {{-- Submit Button --}}

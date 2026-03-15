@@ -3,9 +3,9 @@
     {{-- Author Profile Header --}}
     <section class="relative bg-background text-foreground py-24 md:py-32 overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <div class="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-900 to-black animate-gradient-xy"></div>
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,_rgba(30,200,150,0.1),_transparent_40%)]"></div>
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_30%,_rgba(241,196,15,0.1),_transparent_40%)]"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-amber-50 via-background to-stone-100 dark:from-gray-800 dark:via-gray-900 dark:to-black animate-gradient-xy"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,_rgba(30,200,150,0.12),_transparent_40%)] dark:bg-[radial-gradient(circle_at_20%_80%,_rgba(30,200,150,0.1),_transparent_40%)]"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_30%,_rgba(241,196,15,0.14),_transparent_40%)] dark:bg-[radial-gradient(circle_at_80%_30%,_rgba(241,196,15,0.1),_transparent_40%)]"></div>
         </div>
         <div class="container mx-auto px-6 relative z-10">
             <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
@@ -17,7 +17,7 @@
                 <div class="text-center md:text-left animate-fade-in-up">
                     <h1 class="text-4xl md:text-5xl font-bold font-serif mb-2">{{ $author->name }}</h1>
                     <p class="text-xl font-semibold text-primary mb-4">{{ $author->title }}</p>
-                    <p class="text-gray-300 max-w-2xl leading-relaxed">{{ $author->about }}</p>
+                    <p class="text-muted-foreground max-w-2xl leading-relaxed">{{ $author->about }}</p>
                     {{-- Social Links --}}
                     <div class="flex justify-center md:justify-start gap-4 mt-6">
                         @if($author->site)

@@ -1,23 +1,21 @@
 <x-layouts.app :title="'Painel Administrativo – Phrónesis'">
-    {{-- Dashboard Header --}}
     <section class="relative bg-background text-foreground py-20 md:py-24 overflow-hidden">
         <div class="absolute inset-0 z-0">
             <div
-                class="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-900 to-black animate-gradient-xy"></div>
+                class="absolute inset-0 bg-gradient-to-br from-amber-50 via-background to-stone-100 dark:from-gray-800 dark:via-gray-900 dark:to-black animate-gradient-xy"></div>
             <div
-                class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,_rgba(30,200,150,0.1),_transparent_40%)]"></div>
+                class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,_rgba(30,200,150,0.12),_transparent_40%)] dark:bg-[radial-gradient(circle_at_20%_20%,_rgba(30,200,150,0.1),_transparent_40%)]"></div>
             <div
-                class="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,_rgba(241,196,15,0.1),_transparent_40%)]"></div>
+                class="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,_rgba(241,196,15,0.14),_transparent_40%)] dark:bg-[radial-gradient(circle_at_80%_70%,_rgba(241,196,15,0.1),_transparent_40%)]"></div>
         </div>
         <div class="container mx-auto px-6 relative z-10">
             <h1 class="text-3xl md:text-4xl font-bold font-serif mb-2 animate-fade-in-down">Painel Administrativo</h1>
-            <p class="text-lg text-gray-300 animate-fade-in-up" style="animation-delay: 100ms;">
+            <p class="text-lg text-muted-foreground animate-fade-in-up" style="animation-delay: 100ms;">
                 Olá, {{ Auth::user()->name }}. Bem-vindo de volta!
             </p>
         </div>
     </section>
 
-    {{-- Dashboard Content --}}
     <main class="py-16 bg-background/70">
         <div class="container mx-auto px-6">
             {{-- Stats Cards --}}
@@ -71,14 +69,14 @@
                     <h2 class="text-xl font-bold text-foreground mb-4">Ações Rápidas</h2>
                     <div class="space-y-3">
                         <a href="{{ route('admin.blogs.create') }}"
-                           class="w-full text-center block bg-gray-700/50 hover:bg-gray-700 text-foreground font-semibold py-3 px-4 rounded-lg transition-colors">Novo
+                           class="w-full text-center block bg-card hover:bg-card/80 text-foreground font-semibold py-3 px-4 rounded-lg transition-colors">Novo
                             Artigo</a>
                         @hasrole('admin')
                         <a href="{{ route('admin.authors.create') }}"
-                           class="w-full text-center block bg-gray-700/50 hover:bg-gray-700 text-foreground font-semibold py-3 px-4 rounded-lg transition-colors">Novo
+                           class="w-full text-center block bg-card hover:bg-card/80 text-foreground font-semibold py-3 px-4 rounded-lg transition-colors">Novo
                             Colaborador</a>
                         <a href="{{ route('admin.categories.create') }}"
-                           class="w-full text-center block bg-gray-700/50 hover:bg-gray-700 text-foreground font-semibold py-3 px-4 rounded-lg transition-colors">Nova
+                           class="w-full text-center block bg-card hover:bg-card/80 text-foreground font-semibold py-3 px-4 rounded-lg transition-colors">Nova
                             Categoria</a>
                         <a href="{{ route('admin.users.index') }}"
                            class="w-full text-center block bg-yellow-600/20 hover:bg-yellow-600/30 text-yellow-300 font-semibold py-3 px-4 rounded-lg transition-colors border border-yellow-600/30">Gerenciar

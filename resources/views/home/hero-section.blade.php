@@ -1,7 +1,6 @@
 <section class="relative bg-background text-foreground py-32 md:py-40 overflow-hidden">
     {{-- Background Effects --}}
     <div class="absolute inset-0 z-0">
-        {{-- O gradiente de fundo agora usa as cores semânticas para funcionar nos dois temas --}}
         <div class="absolute inset-0 bg-gradient-to-br from-muted/30 via-background to-background animate-gradient-xy"></div>
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,hsl(var(--primary)/0.1),_transparent_40%)]"></div>
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_30%,hsl(var(--accent)/0.1),_transparent_40%)]"></div>

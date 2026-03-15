@@ -2,7 +2,7 @@
     <section class="relative bg-background text-foreground py-20 md:py-24 overflow-hidden">
         <div class="container mx-auto px-6 relative z-10">
             <h1 class="text-3xl md:text-4xl font-bold font-serif">Gerenciamento de Usuários</h1>
-            <p class="text-lg text-gray-300 mt-2">Atribua e gerencie os cargos dos usuários da plataforma.</p>
+            <p class="text-lg text-muted-foreground mt-2">Atribua e gerencie os cargos dos usuários da plataforma.</p>
         </div>
     </section>
 
@@ -15,7 +15,7 @@
             @endif
 
             <div class="bg-card/50 backdrop-blur-sm rounded-xl border border-border/50 overflow-hidden">
-                <table class="min-w-full divide-y divide-gray-700">
+                <table class="min-w-full divide-y divide-border">
                     <thead class="bg-card/60">
                     <tr>
                         <th scope="col" class="py-3.5 px-4 text-left text-sm font-semibold text-foreground">Nome</th>
@@ -24,13 +24,13 @@
                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-foreground">Alterar Cargo</th>
                     </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-700/50">
+                    <tbody class="divide-y divide-border/60">
                     @foreach ($users as $user)
                         <tr>
                             <td class="whitespace-nowrap py-4 px-4 text-sm font-medium text-foreground">{{ $user->name }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">{{ $user->email }}</td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
-                                    <span class="inline-flex items-center rounded-md bg-gray-700 px-2 py-1 text-xs font-medium text-gray-300">
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">{{ $user->email }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-muted-foreground">
+                                    <span class="inline-flex items-center rounded-md bg-card px-2 py-1 text-xs font-medium text-muted-foreground border border-border/60">
                                         {{ $user->getRoleNames()->first() ?? 'N/A' }}
                                     </span>
                             </td>
@@ -38,7 +38,7 @@
                                 <form action="{{ route('admin.users.update', $user) }}" method="POST" class="flex items-center gap-2">
                                     @csrf
                                     @method('PUT')
-                                    <select name="role" class="block w-full max-w-xs bg-background/50 border-gray-600 rounded-md py-1.5 px-2 text-foreground focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm transition">
+                                    <select name="role" class="block w-full max-w-xs bg-background/50 border-border rounded-md py-1.5 px-2 text-foreground focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm transition">
                                         @foreach ($roles as $role)
                                             <option value="{{ $role->name }}" @selected($user->hasRole($role->name))>
                                                 {{ ucfirst($role->name) }}

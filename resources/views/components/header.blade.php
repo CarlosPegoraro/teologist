@@ -20,29 +20,31 @@
                 <a href="{{ route('posts.index') }}" wire:navigate
                    class="text-sm font-semibold {{ request()->routeIs('posts.*') ? 'text-foreground' : 'text-muted-foreground' }}
                    hover:text-foreground transition-colors">Ágora</a>
+                <a href="{{ route('schole.index') }}" wire:navigate
+                   class="text-sm font-semibold {{ request()->routeIs('schole.*') ? 'text-foreground' : 'text-muted-foreground' }}
+                   hover:text-foreground transition-colors">Scholē</a>
                 <a href="{{ route('authors.index') }}" wire:navigate
                    class="text-sm font-semibold {{ request()->routeIs('authors.*') ? 'text-foreground' : 'text-muted-foreground' }}
                    hover:text-foreground transition-colors">Colaboradores</a>
-                {{-- Adicione a rota do fórum aqui quando tiver --}}
-                {{-- <a href="#" class="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors">Fórum</a> --}}
             </div>
 
             {{-- Auth & User Menu (Desktop) --}}
             <div class="hidden md:flex items-center justify-end">
+{{--                <button @click="theme = (theme === 'dark' ? 'light' : 'dark')"--}}
+{{--                        class="mr-4 text-muted-foreground hover:text-foreground transition-colors"--}}
+{{--                        :aria-label="theme === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro'">--}}
+{{--                    <x-lucide-sun class="h-5 w-5" x-show="theme === 'dark'" style="display: none;"/>--}}
+{{--                    <x-lucide-moon class="h-5 w-5" x-show="theme === 'light'" style="display: none;"/>--}}
+{{--                </button>--}}
                 @guest
                     <a href="{{ route('login') }}" wire:navigate
-                       class="text-sm font-semibold text-gray-300 hover:text-foreground transition-colors mr-4">Login</a>
+                       class="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors mr-4">Login</a>
                     <a href="{{ route('register') }}" wire:navigate
                        class="inline-flex items-center justify-center bg-primary hover:bg-teal-600 text-foreground font-semibold px-4 h-9 rounded-md text-sm transition-colors">Registrar</a>
                 @endguest
 
                 @auth
                     <div class="flex items-center space-x-4 ">
-                        <button @click="theme = (theme === 'dark' ? 'light' : 'dark')"
-                                class="text-muted-foreground hover:text-foreground transition-colors">
-                            <x-lucide-sun class="h-6 w-6" x-show="theme === 'dark'" style="display: none;"/>
-                            <x-lucide-moon class="h-6 w-6" x-show="theme === 'light'" style="display: none;"/>
-                        </button>
                         <div x-data="{ dropdownOpen: false }" class="relative">
                             <button @click="dropdownOpen = !dropdownOpen"
                                     class="flex items-center space-x-2 focus:outline-none">
@@ -63,10 +65,10 @@
 
                                 @hasanyrole('admin|supervisor|author')
                                 <a href="{{ route('admin.dashboard') }}"
-                                   class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-foreground">Dashboard</a>
+                                   class="block px-4 py-2 text-sm text-muted-foreground hover:bg-card hover:text-foreground">Dashboard</a>
                                 @endhasanyrole
                                 <a href="{{ route('profile.edit') }}"
-                                   class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-foreground">Configurações</a>
+                                   class="block px-4 py-2 text-sm text-muted-foreground hover:bg-card hover:text-foreground">Configurações</a>
                                 <div class="border-t border-border my-1"></div>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
@@ -95,11 +97,23 @@
         {{-- Mobile Menu --}}
         <div x-show="mobileMenuOpen" class="md:hidden" style="display: none;">
             <div class="pt-4 pb-3 border-t border-border">
+                <div class="px-2 pb-3">
+                    <button @click="theme = (theme === 'dark' ? 'light' : 'dark')"
+                            class="flex w-full items-center justify-between rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-card hover:text-foreground transition-colors">
+                        <span x-text="theme === 'dark' ? 'Modo claro' : 'Modo escuro'"></span>
+                        <x-lucide-sun class="h-5 w-5" x-show="theme === 'dark'" style="display: none;"/>
+                        <x-lucide-moon class="h-5 w-5" x-show="theme === 'light'" style="display: none;"/>
+                    </button>
+                </div>
                 <div class="space-y-1 px-2">
                     <a href="{{ route('blogs.index') }}" wire:navigate
-                       class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('blogs.*') ? 'bg-gray-700 text-foreground' : 'text-muted-foreground' }} hover:bg-card hover:text-foreground">Blog</a>
+                       class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('blogs.*') ? 'bg-card text-foreground' : 'text-muted-foreground' }} hover:bg-card hover:text-foreground">Blog</a>
+                    <a href="{{ route('posts.index') }}" wire:navigate
+                       class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('posts.*') ? 'bg-card text-foreground' : 'text-muted-foreground' }} hover:bg-card hover:text-foreground">Ágora</a>
+                    <a href="{{ route('schole.index') }}" wire:navigate
+                       class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('schole.*') ? 'bg-card text-foreground' : 'text-muted-foreground' }} hover:bg-card hover:text-foreground">Scholē</a>
                     <a href="{{ route('authors.index') }}" wire:navigate
-                       class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('authors.*') ? 'bg-gray-700 text-foreground' : 'text-muted-foreground' }} hover:bg-card hover:text-foreground">Colaboradores</a>
+                       class="block rounded-md px-3 py-2 text-base font-medium {{ request()->routeIs('authors.*') ? 'bg-card text-foreground' : 'text-muted-foreground' }} hover:bg-card hover:text-foreground">Colaboradores</a>
                 </div>
                 <div class="mt-3 border-t border-border pt-3">
                     @guest

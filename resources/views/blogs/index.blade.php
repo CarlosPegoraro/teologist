@@ -1,6 +1,4 @@
 <x-layouts.app :title="'Blog – Phrónesis'">
-
-    {{-- Blog Header Section --}}
     <section class="relative bg-background text-foreground py-24 md:py-32 overflow-hidden">
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-br from-muted/30 via-background to-background animate-gradient-xy"></div>
@@ -15,7 +13,6 @@
         </div>
     </section>
 
-    {{-- Blog Grid Section --}}
     <section class="py-16 md:py-24 bg-background/70">
         <div class="container mx-auto px-6">
             @if($blogs->count())

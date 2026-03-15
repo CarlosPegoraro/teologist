@@ -1,21 +1,18 @@
 <x-layouts.app :title="'Nossos Colaboradores – Phrónesis'">
-
-    {{-- Authors Header Section --}}
     <section class="relative bg-background text-foreground py-24 md:py-32 overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <div class="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-900 to-black animate-gradient-xy"></div>
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,_rgba(30,200,150,0.1),_transparent_40%)]"></div>
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,_rgba(241,196,15,0.1),_transparent_40%)]"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-amber-50 via-background to-stone-100 dark:from-gray-800 dark:via-gray-900 dark:to-black animate-gradient-xy"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,_rgba(30,200,150,0.12),_transparent_40%)] dark:bg-[radial-gradient(circle_at_30%_70%,_rgba(30,200,150,0.1),_transparent_40%)]"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,_rgba(241,196,15,0.14),_transparent_40%)] dark:bg-[radial-gradient(circle_at_70%_30%,_rgba(241,196,15,0.1),_transparent_40%)]"></div>
         </div>
         <div class="container mx-auto px-6 relative z-10 text-center">
             <h1 class="text-4xl md:text-5xl font-bold font-serif mb-4 animate-fade-in-down">Nossos Colaboradores</h1>
-            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 100ms;">
+            <p class="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 100ms;">
                 Conheça as mentes por trás de nossas análises e reflexões.
             </p>
         </div>
     </section>
 
-    {{-- Authors Grid Section --}}
     <section class="py-16 md:py-24 bg-background/70">
         <div class="container mx-auto px-6">
             @if($authors->count())

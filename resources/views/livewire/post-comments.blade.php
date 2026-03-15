@@ -32,7 +32,7 @@
                             <p class="font-semibold text-foreground">{{ $comment->user->name }}</p>
                             <p class="text-xs text-muted-foreground">{{ $comment->created_at->diffForHumans() }}</p>
                         </div>
-                        <div class="text-gray-300">
+                        <div class="text-muted-foreground">
                             {!! nl2br(e($comment->content)) !!}
                         </div>
                     </div>

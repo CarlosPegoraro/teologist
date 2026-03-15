@@ -48,6 +48,18 @@
             >
                 Fique por dentro das principais notícias e desenvolvimentos nas áreas de teologia, política, economia e sociologia.
             </x-card>
+
+            <x-card
+                :icon="'book-open'"
+                :title="'Scholē'"
+                :route="'schole.index'"
+                :linkMessage="'Explorar matérias'"
+                :color="'primary'"
+                class="animate-fade-in-up md:col-span-2 lg:col-span-3"
+                style="animation-delay: 650ms;"
+            >
+                Uma comunidade de estudos para organizar matérias por curso, área do conhecimento e materiais compartilhados pelos usuários.
+            </x-card>
         </div>
     </div>
 </section>

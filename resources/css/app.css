@@ -80,13 +80,13 @@
         --popover: 0 0% 100%;
         --popover-foreground: 222.2 84% 4.9%;
 
-        --primary: 160 64% 45%; /* Teal-ish */
+        --primary: 160 64% 45%;
         --primary-foreground: 210 40% 98%;
 
-        --secondary: 262 84% 58%; /* Indigo-ish */
+        --secondary: 262 84% 58%;
         --secondary-foreground: 210 40% 98%;
 
-        --accent: 45 93% 47%; /* Yellow-ish */
+        --accent: 45 93% 47%;
         --accent-foreground: 222.2 84% 4.9%;
 
         --color-muted: hsl(217.2 32.6% 17.5%);
@@ -136,7 +136,7 @@
 input:focus[data-flux-control],
 textarea:focus[data-flux-control],
 select:focus[data-flux-control] {
-    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+    @apply outline-hidden ring-2 ring-accent ring-offset-2;
 }
 
 
