@@ -1,0 +1,59 @@
+name: teologist
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "5100:8000"
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:5100
+      DB_CONNECTION: pgsql
+      DB_HOST: database
+      DB_PORT: 5432
+      DB_DATABASE: teologist
+      DB_USERNAME: teologist
+      DB_PASSWORD: teologist
+    volumes:
+      - ..:/var/www/html
+      - composer_vendor:/var/www/html/vendor
+    depends_on:
+      database:
+        condition: service_healthy
+
+  vite:
+    image: node:26-alpine
+    working_dir: /var/www/html
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    ports:
+      - "5101:5173"
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      VITE_DEV_SERVER_URL: http://localhost:5101
+    volumes:
+      - ..:/var/www/html
+      - node_modules:/var/www/html/node_modules
+
+  database:
+    image: postgres:18-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: teologist
+      POSTGRES_USER: teologist
+      POSTGRES_PASSWORD: teologist
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U teologist -d teologist"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  composer_vendor:
+  node_modules:
+  postgres_data:
